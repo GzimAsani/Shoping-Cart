@@ -1,7 +1,7 @@
 const { createSlice } = require("@reduxjs/toolkit");
 
 const uiSlice = createSlice({
-  name: ui,
+  name: 'ui',
   initialState: { cartIsVisible: false },
   reducers: {
     toggle(state) {
