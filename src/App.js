@@ -5,7 +5,7 @@ import Notification from "./components/UI/notification";
 import { Fragment } from "react";
 import Layout from "./components/Layout/Layout";
 import Products from "./components/Shop/Products";
-import { sendData } from './store/cart-slice'
+import { fetchCartData, sendData } from "./store/cart-actions";
 
 let isInitial = true;
 
@@ -16,12 +16,18 @@ function App() {
   const notification = useSelector((state) => state.ui.notification);
 
   useEffect(() => {
+    dispatch(fetchCartData());
+  }, []);
+
+  useEffect(() => {
     if (isInitial) {
       isInitial = false;
       return;
     }
 
-    dispatch(sendData(cart))
+    if (cart.changed) {
+      dispatch(sendData(cart));
+    }
   }, [cart]);
   return (
     <Fragment>
